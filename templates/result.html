@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Result</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+<h1>Kết quả</h1>
+<p><strong>Label:</strong> {{ label }}</p>
+<p><strong>Confidence:</strong> {{ '%.2f'|format(prob) }}</p>
+
+
+<h3>Job text:</h3>
+<pre>{{ raw }}</pre>
+
+
+<a href="/">Quay lại</a>
+</div>
+</body>
+</html>

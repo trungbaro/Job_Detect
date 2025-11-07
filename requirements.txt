@@ -1,0 +1,10 @@
+Flask
+beautifulsoup4
+nltk
+scikit-learn
+tensorflow
+keras
+numpy
+scipy
+joblib
+imbalanced-learn
