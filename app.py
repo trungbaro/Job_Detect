@@ -6,6 +6,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from tensorflow.keras.models import load_model
+import os
 
 # --- Ensure NLTK data ---
 from nltk.data import find
@@ -18,7 +19,7 @@ for resource in ['stopwords', 'wordnet', 'omw-1.4', 'punkt', 'punkt_tab']:
 # --- App setup ---
 app = Flask(__name__)
 
-# Load model + vectorizer
+# --- Load model + vectorizer ---
 model = load_model('model/model.keras')
 with open('model/tfidf.pkl', 'rb') as f:
     tfidf_vectorizer = pickle.load(f)
@@ -56,13 +57,15 @@ def index():
 
         job_text = ' '.join([title, company, location, description, requirements, benefits])
 
-        if job_text:
+        if job_text.strip():
             is_fake = predict_job(job_text)
             if is_fake:
-                result = "This job posting is likely **FAKE**."
+                result = "🚫 This job posting is likely FAKE."
             else:
-                result = "This job posting appears **REAL**."
+                result = "✅ This job posting appears REAL."
     return render_template('index.html', result=result)
 
+# --- Run app (Render-compatible) ---
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
